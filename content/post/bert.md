@@ -68,16 +68,16 @@ The purpose of the masked language model is to predict the original word of a ma
 ## Setting up
 
 In this section, the necessary libraries are imported.
-```bash
 
+```bash
 !pip install transformers
 ```
-```python
+```python3
 from google.colab import drive
 drive.mount('/content/gdrive')
 ```
 
-```python
+```python3
 import os
 import transformers
 import torch
@@ -87,7 +87,7 @@ import numpy as np
 import pandas as pd
 ```
 
-```python
+```python3
 # import data visualization libraries
 import matplotlib.pyplot as plt 
 import seaborn as sns
@@ -149,7 +149,7 @@ sns.countplot(df.dataset)
 
 The dataset mostly consists of product reviews and wikipedia texts."""
 
-```pytgon3
+```python3
 plt.figure(figsize =(5,5))
 plt.xticks(rotation=45, ha="right")
 sns.countplot(x=df.label)
