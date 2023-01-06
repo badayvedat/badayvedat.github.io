@@ -2,7 +2,7 @@
 author: Vedat Baday
 title: Turkish Sentiment Analysis using Hugging Face
 date: 2019-03-08
-description: A brief guide to setup KaTeX
+description: A brief guide to Turkish sentiment analysis with Hugging Face
 ---
 
 # Turkish Sentiment Analysis using Hugging Face
@@ -251,7 +251,7 @@ test_dataset = SentimentDataset(
 ```
 
 Create a dataloader for the training data
-```pyrhon3
+```python3
 TRAIN_BATCH_SIZE = 256
 TEST_BATCH_SIZE = 512  
 ```
@@ -268,7 +268,7 @@ print(sample_batch[1][0])
 
 To fine-tune, use a model from the Transformers library in Hugging Face on the training set.
 
-```pyrhon3
+```python3
 class SentimentClassificationModel(nn.Module):
     def __init__(self, pretrained_model_name:str='dbmdz/bert-base-turkish-cased', 
                  num_classes:int=3, freeze_base_model:bool=True, device='cpu'):
@@ -295,8 +295,8 @@ model = SentimentClassificationModel(device=device)
 ## Evaluation of the Model Before Training
 
 We showed accuracy, f1, precision, recall metrics using sklearn. You can see from the function below:
-"""
 
+```python3
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 def compute_metrics(true, preds):
@@ -308,7 +308,9 @@ def compute_metrics(true, preds):
         'precision': precision,
         'recall': recall
     }
+```
 
+```python3
 from torch.nn import CrossEntropyLoss
 
 
@@ -355,34 +357,43 @@ def evaluation_step(dataloader):
     eval_loss = eval_loss / len(dataloader)
 
     return true, preds, eval_loss
+```
 
-"""Evaluate the pretrained model using test data."""
+Evaluate the pretrained model using test data."""
 
+```python3
 true, preds, eval_loss = evaluation_step(test_dataloader)
 
 compute_metrics(true, preds)
+```
 
-"""## Train the Model
+## Train the Model
 
 Weight decay is a way to prevent overfitting and reduce the complexity of a model in machine learning. It has been found to help machine learning models, including deep neural networks, perform better on new data. This technique is known as regularization.  
 
 Below you can see how to apply regularization:
-"""
 
+```python3
 EPOCHS = 5
 LEARNING_RATE = 2e-5
+```
 
+```python3
 NO_DECAY = ['bias', 'LayerNorm.weight']
 OPTIMIZER_GROUPED_PARAMETERS = [
     {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in NO_DECAY)], 'weight_decay': 0.01},
     {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in NO_DECAY)], 'weight_decay': 0.0}
 ]
+```
 
+```python3
 from torch.optim import AdamW
 
 # Set up the optimizer
 optimizer = AdamW(OPTIMIZER_GROUPED_PARAMETERS, lr=LEARNING_RATE)
+```
 
+```python3
 model = model.train()
 
 losses = []
@@ -415,16 +426,18 @@ for epoch in range(EPOCHS):
             }
 
             tepoch.set_postfix(**metrics)
+```
 
-"""## Evaluation
+## Evaluation
 To evaluate the model you can use *evaluation_step* function. Then you can see results using *compute_metrics* function. It shows accuracy, f1, precision, recall metrics.
-"""
 
+```python3
 true, preds, eval_loss = evaluation_step(test_dataloader)
 
 compute_metrics(true, preds)
+```
 
-"""It is done! We have implemented a Turkish sentiment analysis model using Hugging Face. You can implement it yourself! It is not as difficult as it seems.
+It is done! We have implemented a Turkish sentiment analysis model using Hugging Face. You can implement it yourself! It is not as difficult as it seems.
 
 ## References
 [1] Devlin, J., Chang, M. W., Lee, K., and Toutanova, K. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, NAACL-HLT 2019 (pp. 4171-4186). Stroudsburg, PA: Association for Computational Linguistics.  
