@@ -673,8 +673,8 @@ ul.language-select > li, ul.footer-menu > li {
     position: relative;
     border-radius: 50%;
     border: 4px solid #222;
-    box-shadow: inset 0px 8px #EBC815, inset 0px 8px 1px 1px #999;
-    -moz-box-shadow: inset 0px 16px #EBC815, inset 0px 16px 1px 1px #999;
+    box-shadow: inset 0px 8px #EBC815;
+    -moz-box-shadow: inset 0px 8px #EBC815;
     transform: rotate(90deg);
 }
 
