@@ -1,7 +1,7 @@
 ---
 author: Vedat Baday
 title: Turkish Sentiment Analysis using Hugging Face
-date: 2019-03-08
+date: 2022-01-06
 description: A brief guide to Turkish sentiment analysis with Hugging Face
 ---
 
