@@ -4,8 +4,7 @@
 {{ end }}
 
 {{ if not (in (slice "light-without-switcher" "dark-without-switcher" "auto-without-switcher") $style) }}
-    <button class="theme-switcher">
-        {{ i18n "darkTheme" }}
+    <button class="theme-switcher-dark">
     </button>
 {{ end }}
 
@@ -20,11 +19,15 @@ let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
 const autoChangeScheme = e => {
     currentTheme = e.matches ? 'dark' : 'light'
     document.documentElement.setAttribute('data-theme', currentTheme)
-    changeButtonText()
+    // changeButtonText()
+    changeButtonTheme()
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    switchButton = document.querySelector('.theme-switcher')
+    switchButton = document.querySelector('.theme-switcher-light')
+    if (switchButton == null) {
+        switchButton = document.querySelector('.theme-switcher-dark')
+    }
     currentTheme = detectCurrentScheme()
     if (currentTheme == 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark')
@@ -35,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (switchButton) {
-        changeButtonText()
+        // changeButtonText()
+        changeButtonTheme()
         switchButton.addEventListener('click', switchTheme, false)
     }
   
@@ -65,6 +69,13 @@ function changeButtonText()
     }
 }
 
+function changeButtonTheme()
+{   
+    if (switchButton) {
+        switchButton.setAttribute("class", currentTheme == 'dark' ?  "theme-switcher-dark" : "theme-switcher-light")
+    }
+}
+
 function switchTheme(e) {
     if (currentTheme == 'dark') {
         localStorage.setItem(STORAGE_KEY, 'light')
@@ -75,7 +86,8 @@ function switchTheme(e) {
         document.documentElement.setAttribute('data-theme', 'dark')
         currentTheme = 'dark'
     }
-    changeButtonText()
+    // changeButtonText()
+    changeButtonTheme()
 }
 
 function showContent() {
