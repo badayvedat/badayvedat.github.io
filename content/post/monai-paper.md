@@ -7,8 +7,6 @@ date: 2022-01-11
 
 description: A brief guide to Turkish sentiment analysis with Hugging Face
 
-summary: "My notes on the MONAI: An open-source framework for deep learning in healthcare paper"
-
 tags: ["MONAI", "senior-project", "paper", "summary"]
 
 ---
