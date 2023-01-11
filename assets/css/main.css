@@ -687,7 +687,8 @@ ul.language-select > li, ul.footer-menu > li {
     overflow: auto;
 }
 .highlight pre {
-    padding-right: 75px;
+    padding: 0;
+    margin-top: 10px;
 }
 
 .highlight:hover .highlight-copy-btn {
@@ -698,7 +699,7 @@ ul.language-select > li, ul.footer-menu > li {
 .highlight-copy-btn {
     display: none;
     position: absolute;
-    top: 18px;
+    top: 10px;
     right: 2px;
     border: 0;
     border-radius: 4px;
