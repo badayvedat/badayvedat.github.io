@@ -261,6 +261,7 @@ trainer = SupervisedTrainer(
 trainer.run()
 ```
 
+\
 Utility for reproducible workflows
 
 ```python
