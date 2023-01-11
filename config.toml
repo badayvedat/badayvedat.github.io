@@ -63,7 +63,7 @@ url = "/tags/"
 weight = 2
 
 [[menu.main]]
-name = "Archive"
+name = "Posts"
 identifier = "archive"
 url = "/posts/"
 weight = 3

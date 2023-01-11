@@ -3,18 +3,12 @@ author: Vedat Baday
 title: Turkish Sentiment Analysis using Hugging Face
 date: 2022-01-06
 description: A brief guide to Turkish sentiment analysis with Hugging Face
+summary: " "
+tags: ["hugging-face", "deep-learning"]
 ---
 
-# Turkish Sentiment Analysis using Hugging Face
-
-
-
-
-
-
-
-
 In this blog post, we will do Turkish sentiment analysis using Hugging Face. Although models are frequently developed on English sources, there is no blog post in Turkish that is explained in a simple and clear language. We will explain sufficient and important details in this blog post.
+
 
 These blog post consists of 10 sections:
 
