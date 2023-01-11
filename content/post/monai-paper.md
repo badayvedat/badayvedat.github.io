@@ -91,7 +91,7 @@ tags: ["MONAI", "senior-project", "paper", "summary"]
 			
 			- Physics-specific transforms
 				
-				- > Data acquired from magnetic resonance imaging is recorded in *k*-space, and therefore it is desirable to be able to augment MR images in the *k*-space domain.
+				- "Data acquired from magnetic resonance imaging is recorded in *k*-space, and therefore it is desirable to be able to augment MR images in the *k*-space domain."
 					
 					- I believe number of channels is referred as *k*-spaces.
 			
