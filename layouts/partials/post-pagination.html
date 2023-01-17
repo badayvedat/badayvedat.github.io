@@ -6,7 +6,7 @@
             {{ end }}
         </div>
         <div class="right pagination-item {{ if not .PrevInSection }}disabled{{ end }}">
-            {{ if .PrevInSection }}
+            {{ if and (.PrevInSection) (not .PrevInSection.Params.Hidden)}}
             <a href="{{ .PrevInSection.RelPermalink }}">{{ .PrevInSection.Title }} >></a>
             {{ end }}
         </div>
