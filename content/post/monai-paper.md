@@ -2,7 +2,7 @@
 author: Vedat Baday
 title: Notes on the MONAI paper
 date: 2022-01-11
-description: A brief guide to Turkish sentiment analysis with Hugging Face
+description: My notes on MONAI paper
 tags: ["MONAI", "senior-project", "paper", "summary", "note"]
 summary: " "
 ---
