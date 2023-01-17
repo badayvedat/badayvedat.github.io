@@ -1,7 +1,7 @@
 ---
 title: Math Sample
 subtitle: Using KaTeX
-date: 2017-03-06
+date: 2017-03-08
 tags: ["example", "math"]
 ---
 
