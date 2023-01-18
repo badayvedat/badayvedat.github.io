@@ -277,6 +277,5 @@ monai.utils.set_determinism(
 	
 ### References
 
-[1] MONAI: An open-source framework for deep learning in healthcare
-
+[1] MONAI: An open-source framework for deep learning in healthcare, https://arxiv.org/abs/2211.02701
 
