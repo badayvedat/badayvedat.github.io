@@ -10,7 +10,7 @@ summary: " "
 
 ### Lecture 1: Course Vision and When to Use ML
 * We avoid an AI winter by translating research progress to real-world products
-* “Flat-earth” ML:Classical machine learning workflow in research
+* ***“Flat-earth” ML:*** Classical machine learning workflow in research
    * In production, complexity of monitoring and deploying is also exists
 * FSDL is not an MLOps course but it aims to teach enough MLOps to get things done
 * **You do not need perfect infrastructure nor the perfect model to start**
