@@ -5,7 +5,6 @@ date: 2022-01-19
 description: My notes on Full Stack Deep Learning course
 tags: ["deep-learning", "mlops"]
 summary: " "
-hidden: true
 ---
 
 
