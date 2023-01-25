@@ -25,6 +25,3 @@ jobs:
 
       - name: Execute b tests
         run: python tests/b.py
-    
-      - name: Display test b
-        run: cat tests/b.py
