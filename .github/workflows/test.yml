@@ -22,9 +22,9 @@ jobs:
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Execute b tests
         run: |
           python tests/b.py
+      
+      - name: Display test b
+        run: cat tests/b.py
