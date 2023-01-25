@@ -24,7 +24,7 @@ jobs:
         run: ls ..
 
       - name: Execute a tests
-        run: python a.py
+        run: python tests/a.py
   job_b:
     if: |
       contains(github.event.comment.html_url, '/pull/') &&
@@ -36,4 +36,4 @@ jobs:
 
       - name: Execute b tests
         run: |
-          python b.py
+          python tests/b.py
