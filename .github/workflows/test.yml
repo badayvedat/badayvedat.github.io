@@ -11,6 +11,9 @@ jobs:
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+          uses: actions/checkout@v2
+
       - name: Execute a tests
         run: |
           python a.py
@@ -20,6 +23,9 @@ jobs:
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+          uses: actions/checkout@v2
+
       - name: Execute b tests
         run: |
           python b.py
