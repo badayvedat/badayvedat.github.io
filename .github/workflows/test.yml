@@ -5,12 +5,12 @@ on:
     types: [created, edited]
 
 jobs:
-  tests_a:
-    if: |
+  if: |
       contains(github.event.comment.html_url, '/pull/') &&
       contains(github.event.comment.body, '/hello_tests')
-    runs-on: ubuntu-latest
-    
+  runs-on: ubuntu-latest
+
+  tests_a:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -18,11 +18,6 @@ jobs:
       - name: Execute a tests
         run: python tests/a.py
   tests_b:
-    if: |
-      contains(github.event.comment.html_url, '/pull/') &&
-      contains(github.event.comment.body, '/hello_tests')
-    runs-on: ubuntu-latest
-  
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
