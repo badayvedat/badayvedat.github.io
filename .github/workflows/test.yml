@@ -13,27 +13,17 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
-      - name: print working dir
-        run:  pwd
-      
-      - name: list working dir
-        run:  ls
-
-      - name: list parent dir
-        run: ls ..
 
       - name: Execute a tests
-        run: python a.py
+        run: python tests/a.py
   job_b:
     if: |
       contains(github.event.comment.html_url, '/pull/') &&
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Execute b tests
-        run: |
-          python b.py
+        run: python tests/b.py
+      
+      - name: Display test b
+        run: cat tests/b.py
