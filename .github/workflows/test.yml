@@ -13,15 +13,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
-      - name: print working dir
-        run:  pwd
-      
-      - name: list working dir
-        run:  ls
-
-      - name: list parent dir
-        run: ls ..
 
       - name: Execute a tests
         run: python tests/a.py
