@@ -1,0 +1,21 @@
+name: Run tests
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  job_a:
+    if: |
+      contains(github.event.comment.html_url, '/pull/') &&
+      contains(github.event.comment.body, '/hello_tests')
+    runs-on: ubuntu-latest
+    run: |
+      python a.py
+  job_b:
+    if: |
+      contains(github.event.comment.html_url, '/pull/') &&
+      contains(github.event.comment.body, '/hello_tests')
+    runs-on: ubuntu-latest
+    run: |
+      python b.py
