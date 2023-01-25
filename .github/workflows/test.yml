@@ -16,6 +16,9 @@ jobs:
 
       - name: Execute a tests
         run: |
+          pwd;
+          ls;
+          ls ..;
           python a.py
   job_b:
     if: |
