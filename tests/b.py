@@ -1,6 +1,6 @@
 import time
 
 
-for i in range(10**2):
-    time.sleep(1)
+for i in range(200):
+    time.sleep(0.5)
     print(f"b: {i}")
