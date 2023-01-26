@@ -5,6 +5,7 @@ on:
     types: [created, edited]
   pull_request:
     branches: [master]
+  push:
     paths: [tests]
 
 jobs:
