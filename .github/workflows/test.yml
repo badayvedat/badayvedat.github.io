@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [vedat-baday.feature.workflow-test, master]
     paths: [tests]
 
 jobs:
@@ -16,17 +15,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref || github.ref_name }} 
+
+      - name: Checkout Pull Request
+        run: hub pr checkout ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Execute a tests
         run: python tests/a.py
-
-      - name: print head ref
-        run: echo ${{ github.head_ref }}
-
-      - name: print ref name
-        run: echo ${{ github.ref_name }}
 
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
