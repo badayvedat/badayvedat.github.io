@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [master]
   push:
+    branches: [vedat-baday.feature.workflow-test, master]
     paths: [tests]
 
 jobs:
