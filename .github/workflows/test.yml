@@ -5,6 +5,8 @@ on:
     types: [created, edited]
   pull_request:
     branches: [master]
+  push:
+    branches: [vedat-baday.feature.workflow-test, master]
     paths: [tests]
 
 jobs:
@@ -15,7 +17,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.ref_name }}
 
       - name: Execute a tests
         run: python tests/a.py
@@ -26,7 +28,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.ref_name }}
 
       - name: Execute b tests
         run: python tests/b.py
