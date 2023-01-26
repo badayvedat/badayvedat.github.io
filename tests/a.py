@@ -1,8 +1,8 @@
 import time
+import os
+from pprint import pprint
 
-
-for i in range(100):
+for i in range(10**2):
     print(f"a: {i}")
 
-"git show -s --format=%B | tail -2 | head -1"
-
+pprint(dict(os.environ))
