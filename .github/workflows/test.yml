@@ -21,6 +21,10 @@ jobs:
 
       - name: Execute a tests
         run: python tests/a.py
+
+      - name: print env variable
+        run: echo ${{ github.head_ref || github.ref_name }}
+
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
