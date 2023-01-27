@@ -3,10 +3,8 @@ name: Run tests
 on:
   issue_comment:
     types: [created, edited]
-  pull_request:
-    branches: [master]
   push:
-    branches: ["*"]
+    branches: ["**"]
     paths: [tests/**]
 
 jobs:
