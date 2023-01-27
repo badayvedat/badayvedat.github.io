@@ -4,9 +4,10 @@ const github = require('@actions/github');
 async function run() {
     try {
         let body = "<details><summary>Show Output</summary>```\n\Details\n```</details>"
-        console.log(process.env["GITHUB_TOKEN"].length)
+        
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
-
+        const { context = {} } = github;
+        
         const response = await octokit.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
