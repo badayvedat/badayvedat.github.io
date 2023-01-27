@@ -20,7 +20,7 @@ jobs:
             
             
   tests_a:
-    if: contains(github.event.comment.body, '/hello_tests')
+    if: {{ github.event_name }} contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
