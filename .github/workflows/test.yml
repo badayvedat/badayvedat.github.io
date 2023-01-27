@@ -64,6 +64,6 @@ jobs:
       - run: npm i @actions/core @actions/github dotenv
     
       - name: print logs
-        run: node log.js
+        run: node .github/actions//log.js
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
