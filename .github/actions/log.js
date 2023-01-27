@@ -13,8 +13,6 @@ const createComment = async (comment_body, octokit) => {
         repo: context.repo.repo,
         body: comment_body
     }).catch((error) => { console.log(error) });
-    console.log("create")
-    console.log(response)
     return response.data.id
 }
 
