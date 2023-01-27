@@ -2,11 +2,9 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 async function run() {
-    let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
-
-    console.log(process.env)
-
-    const octokit = new github.getOctokit()
+    let body = "<details><summary>Show Output</summary>```\n\Details\n```</details>"
+    console.log(process.env["GITHUB_TOKEN"].length)
+    const octokit = new github.GitHub(process.env["GITHUB_TOKEN"]);
 
     const response = octokit.rest.issues.createComment({
         issue_number: context.issue.number,
