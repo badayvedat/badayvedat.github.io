@@ -16,7 +16,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            let body = "<details><summary>Integration Tests outputs</summary>Integration test details</details>"
+            let body = "<details><summary>Show Output</summary>```\nIntegration test details```</details>"
             response = await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -25,6 +25,10 @@ jobs:
             });
             const comment_id = response.data.id;
             console.log(comment_id);
+            console.log(context);
+
+            console.log(context.jobs.tests_a.result);
+            
           
             
   tests_a:
@@ -41,10 +45,8 @@ jobs:
 
       - name: Execute a tests
         run: |
-          echo "$GITHUB_ENV"
           python tests/a.py >> output.txt
           echo "A_OUT=$(cat output.txt)" >> $GITHUB_ENV
-          echo "$GITHUB_ENV"
 
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
