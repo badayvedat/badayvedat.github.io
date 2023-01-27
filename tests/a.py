@@ -1,8 +1,6 @@
 import time
-import os
 from pprint import pprint
 
-for i in range(10**2):
+for i in range(200):
+    time.sleep(1)
     print(f"a: {i}")
-
-pprint(dict(os.environ))
