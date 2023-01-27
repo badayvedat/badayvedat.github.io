@@ -26,10 +26,6 @@ jobs:
             const comment_id = response.data.id;
             console.log(comment_id);
             console.log(context);
-
-            console.log(context.jobs.tests_a.result);
-            
-          
             
   tests_a:
     if: contains(github.event.comment.body, '/hello_tests')
@@ -46,7 +42,7 @@ jobs:
       - name: Execute a tests
         run: |
           python tests/a.py >> output.txt
-          echo "A_OUT=$(cat output.txt)" >> $GITHUB_ENV
+          echo "A_OUT=\"$(cat output.txt)\"" >> $GITHUB_ENV
 
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
