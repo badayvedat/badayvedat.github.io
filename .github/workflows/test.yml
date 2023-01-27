@@ -16,7 +16,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            node log.js
+            let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
+            
             
   tests_a:
     if: contains(github.event.comment.body, '/hello_tests')
@@ -48,3 +49,18 @@ jobs:
 
       - name: Execute b tests
         run: python tests/b.py
+
+  js_logs:
+    if: contains(github.event.comment.body, '/hello_tests')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Checkout Pull Request
+        run: hub pr checkout ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: print logs
+        run: node log.js
