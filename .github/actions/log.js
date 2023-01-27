@@ -16,15 +16,16 @@ const createComment = async (comment_body, octokit) => {
     return response.data.id
 }
 
-const updateComment = async (comment_body, comment_id, octokit) => {
+const updateComment = (comment_body, comment_id, octokit) => {
     const { context = {} } = github;
 
-    response = await octokit.rest.issues.updateComment({
+    response = octokit.rest.issues.updateComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
         comment_id: comment_id,
         body: comment_body
     });
+    console.log(response)
     return response.data.id
 }
 
@@ -32,6 +33,8 @@ const updateComment = async (comment_body, comment_id, octokit) => {
 const logOutputs = (filename, comment_id, octokit) => {
     try {
         const data = fs.readFileSync(filename, 'utf8');
+        console.log("data")
+        console.log(data)
         updateComment(data, comment_id, octokit)
     } catch (err) {
         console.error(err);
