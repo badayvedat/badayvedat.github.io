@@ -25,8 +25,6 @@ const updateComment = async ({comment_body, comment_id, octokit}) => {
         comment_id: comment_id,
         body: getMarkdownSummary(comment_body)
     }).catch((error) => { console.log(error) });
-    console.log("update");
-    console.log(response);
     return await response.data.id
 }
 
@@ -42,8 +40,6 @@ const getMarkdownSummary = (body) => {
 const logOutputs = async ({filename, comment_id, octokit}) => {
     try {
         const data = fs.readFileSync(filename, 'utf8');
-        console.log("data");
-        console.log(data);
         await updateComment({
             comment_body: data,
             comment_id: comment_id,
@@ -68,7 +64,6 @@ async function run() {
                 comment_id: comment_id,
                 octokit: octokit,
             });
-            console.log('running every 30 seconds');
         });
 
     } catch (error) {
