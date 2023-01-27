@@ -20,7 +20,7 @@ async function run() {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
         const { context = {} } = github;
 
-        const comment_id = createComment(body, octokit, context);
+        const comment_id = createComment(body, context, octokit);
 
         console.log(comment_id);
     } catch (error) {
