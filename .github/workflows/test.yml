@@ -64,5 +64,5 @@ jobs:
       - run: npm i @actions/core @actions/github dotenv
     
       - run: node .github/actions//log.js
-        with:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
