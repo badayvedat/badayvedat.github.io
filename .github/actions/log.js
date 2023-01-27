@@ -13,6 +13,8 @@ const createComment = async (comment_body, octokit) => {
         repo: context.repo.repo,
         body: comment_body
     }).catch((error) => { console.log(error) });
+    console.log("create")
+    console.log(response)
     return response.data.id
 }
 
@@ -25,6 +27,7 @@ const updateComment = async (comment_body, comment_id, octokit) => {
         comment_id: comment_id,
         body: getMarkdownSummary(comment_body)
     }).catch((error) => { console.log(error) });
+    console.log("update");
     console.log(response);
     return response.data.id
 }
@@ -51,13 +54,18 @@ const logOutputs = (filename, comment_id, octokit) => {
 
 async function run() {
     try {
-        const body = "<details><summary>Show Output</summary>\n\n```\nDetails\n```\n</details>"
-        
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
-        const comment_id = createComment(body, octokit);
-        cron.schedule('*/10 * * * * *', () => {
-            logOutputs("output.txt", comment_id, octokit);
+        const comment_id = createComment(
+            getMarkdownSummary(""), 
+            octokit
+        );
+        cron.schedule('*/30 * * * * *', () => {
+            logOutputs({
+                filename: "output.txt",
+                comment_id: comment_id,
+                octokit: octokit,
+            });
             console.log('running every 30 seconds');
         });
 
