@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 
-const createComment = async (body, octokit) => {
+const createComment = async (body, context, octokit) => {
     response = await octokit.rest.issues.createComment({
         issue_number: context.issue.number,
         owner: context.repo.owner,
@@ -20,7 +20,7 @@ async function run() {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
         const { context = {} } = github;
 
-        const comment_id = createComment(body, octokit);
+        const comment_id = createComment(body, octokit, context);
 
         console.log(comment_id);
     } catch (error) {
