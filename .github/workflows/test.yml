@@ -61,8 +61,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: npm i @actions/core @actions/github dotenv
+      - run: npm i @actions/core @actions/github node-cron fs
     
-      - run: node .github/actions//log.js
+      - name: logged a tests
+        run: |
+          python tests/a.py >> output.txt &
+          node .github/actions//log.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

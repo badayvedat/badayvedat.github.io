@@ -1,17 +1,38 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const cron = require('node-cron');
+const fs = require('fs');
 
 
-const createComment = async (body, context, octokit) => {
+const createComment = async (comment_body, octokit) => {
     response = await octokit.rest.issues.createComment({
-        issue_number: context.issue.number,
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        body: body
+        issue_number: github.context.issue.number,
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        body: comment_body
     });
     return response.data.id
 }
 
+const updateComment = async (comment_body, comment_id, octokit) => {
+    response = await octokit.rest.issues.updateComment({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        comment_id: comment_id,
+        body: comment_body
+    });
+    return response.data.id
+}
+
+
+const logOutputs = (filename, comment_id, octokit) => {
+    try {
+        const data = fs.readFileSync(filename, 'utf8');
+        updateComment(data, comment_id, octokit)
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 async function run() {
     try {
@@ -21,8 +42,11 @@ async function run() {
         const { context = {} } = github;
 
         const comment_id = createComment(body, context, octokit);
+        cron.schedule('*/10 * * * * *', () => {
+            logOutputs("output.txt", comment_id, octokit);
+            console.log('running every 30 seconds');
+        });
 
-        console.log(comment_id);
     } catch (error) {
         core.error(error);
         core.setFailed(error.message);
