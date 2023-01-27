@@ -18,7 +18,7 @@ const createComment = async (comment_body, octokit) => {
     return response.data.id
 }
 
-const updateComment = async (comment_body, comment_id, octokit) => {
+const updateComment = async ({comment_body, comment_id, octokit}) => {
     const { context = {} } = github;
 
     response = await octokit.rest.issues.updateComment({
