@@ -8,6 +8,17 @@ on:
     paths: [tests/**]
 
 jobs:
+  log_output:
+    if: contains(github.event.comment.body, '/hello_tests')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
+            
+            
   tests_a:
     if: contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
@@ -21,7 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Execute a tests
-        run: python tests/a.py
+        run: |
+          python tests/a.py >> output.txt &
 
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
@@ -37,3 +49,18 @@ jobs:
 
       - name: Execute b tests
         run: python tests/b.py
+
+  js_logs:
+    if: contains(github.event.comment.body, '/hello_tests')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Checkout Pull Request
+        run: hub pr checkout ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: print logs
+        run: node log.js
