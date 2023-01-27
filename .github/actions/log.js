@@ -39,12 +39,12 @@ const getMarkdownSummary = (body) => {
 }
  
 
-const logOutputs = ({filename, comment_id, octokit}) => {
+const logOutputs = async ({filename, comment_id, octokit}) => {
     try {
         const data = fs.readFileSync(filename, 'utf8');
         console.log("data");
         console.log(data);
-        updateComment({
+        await updateComment({
             comment_body: data,
             comment_id: comment_id,
             octokit: octokit
@@ -58,7 +58,7 @@ async function run() {
     try {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
-        const comment_id = createComment({
+        const comment_id = await createComment({
             comment_body: getMarkdownSummary(""), 
             octokit: octokit
         });
