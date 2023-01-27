@@ -64,7 +64,7 @@ jobs:
       - run: npm i @actions/core @actions/github
       
       - run: |
-        echo GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
+          echo GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
 
       - name: print logs
         run: node log.js
