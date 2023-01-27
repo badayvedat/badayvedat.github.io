@@ -63,8 +63,10 @@ jobs:
           node-version: '14'
       - run: npm i @actions/core @actions/github dotenv
       
-      - run: |
+      - name: set variables
+        run: |
           echo GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
+          cat .env
 
       - name: print logs
         run: node log.js
