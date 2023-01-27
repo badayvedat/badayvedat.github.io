@@ -16,7 +16,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            let body = "<details><summary>Show Output</summary>```\nIntegration test details```</details>"
+            let body = "<details><summary>Show Output</summary>```\n\nIntegration test details```</details>"
             response = await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -42,7 +42,9 @@ jobs:
       - name: Execute a tests
         run: |
           python tests/a.py >> output.txt
-          echo "A_OUT=\"$(cat output.txt)\"" >> $GITHUB_ENV
+          echo "A_OUT<<EOFDELIM" >> ${GITHUB_ENV}
+          echo "$(cat output.txt)" >> ${GITHUB_ENV}
+          echo "EOFDELIM" >> ${GITHUB_ENV}
 
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
