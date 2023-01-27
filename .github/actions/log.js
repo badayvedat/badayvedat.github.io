@@ -12,23 +12,31 @@ const createComment = async (comment_body, octokit) => {
         owner: context.repo.owner,
         repo: context.repo.repo,
         body: comment_body
-    });
+    }).catch((error) => { console.log(error) });
     return response.data.id
 }
 
-const updateComment = (comment_body, comment_id, octokit) => {
+const updateComment = async (comment_body, comment_id, octokit) => {
     const { context = {} } = github;
 
-    response = octokit.rest.issues.updateComment({
+    response = await octokit.rest.issues.updateComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
         comment_id: comment_id,
-        body: comment_body
-    });
-    console.log(response)
+        body: getMarkdownSummary(comment_body)
+    }).catch((error) => { console.log(error) });
+    console.log(response);
     return response.data.id
 }
 
+
+const getMarkdownSummary = (body) => {
+    const summary_block = "<summary>Show Output</summary>\n"
+    const code_ticks = "\n```\n"
+    const output = `<details>${summary_block}${code_ticks}${body}${code_ticks}</details>`
+    return output
+}
+ 
 
 const logOutputs = (filename, comment_id, octokit) => {
     try {
