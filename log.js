@@ -5,7 +5,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
-console.log(GITHUB_TOKEN)
+console.log(process.env)
 const token = core.getInput(process.env.GITHUB_TOKEN)
 const octokit = github.getOctokit(token)
 
