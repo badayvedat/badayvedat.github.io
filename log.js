@@ -5,9 +5,10 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
+
 console.log(process.env)
-const token = core.getInput(process.env.GITHUB_TOKEN)
-const octokit = github.getOctokit(token)
+
+const octokit = github.getOctokit()
 
 const response = octokit.rest.issues.createComment({
     issue_number: context.issue.number,
