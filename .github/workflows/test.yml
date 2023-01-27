@@ -16,16 +16,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
-            response = await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            });
-            const comment_id = response.data.id;
-            console.log(comment_id);
-            console.log(context);
+            node log.js
             
   tests_a:
     if: contains(github.event.comment.body, '/hello_tests')
@@ -41,10 +32,7 @@ jobs:
 
       - name: Execute a tests
         run: |
-          python tests/a.py >> output.txt
-          echo "A_OUT<<EOFDELIM" >> ${GITHUB_ENV}
-          echo "$(cat output.txt)" >> ${GITHUB_ENV}
-          echo "EOFDELIM" >> ${GITHUB_ENV}
+          python tests/a.py >> output.txt &
 
   tests_b:
     if: contains(github.event.comment.body, '/hello_tests')
