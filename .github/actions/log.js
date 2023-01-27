@@ -18,7 +18,7 @@ const createComment = async (comment_body, octokit) => {
     return response.data.id
 }
 
-const updateComment = async ({comment_body, comment_id, octokit}) => {
+const updateComment = async (comment_body, comment_id, octokit) => {
     const { context = {} } = github;
 
     response = await octokit.rest.issues.updateComment({
@@ -41,7 +41,7 @@ const getMarkdownSummary = (body) => {
 }
  
 
-const logOutputs = (filename, comment_id, octokit) => {
+const logOutputs = ({filename, comment_id, octokit}) => {
     try {
         const data = fs.readFileSync(filename, 'utf8');
         console.log("data")
