@@ -62,8 +62,9 @@ jobs:
         with:
           node-version: '14'
       - run: npm i @actions/core @actions/github
-        
+      
+      - run: |
+        echo GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
+
       - name: print logs
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node log.js

@@ -1,10 +1,12 @@
 
+require('dotenv').config();
+
 const core = require('@actions/core');
 const github = require('@actions/github');
 
 let body = "<details><summary>Show Output</summary>```\n\nIntegration test details\n```</details>"
 
-const token = core.getInput("GITHUB_TOKEN")
+const token = core.getInput(process.env.GITHUB_TOKEN)
 const octokit = github.getOctokit(token)
 
 const response = octokit.rest.issues.createComment({
