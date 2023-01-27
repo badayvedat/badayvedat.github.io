@@ -5,19 +5,23 @@ const fs = require('fs');
 
 
 const createComment = async (comment_body, octokit) => {
+    const { context = {} } = github;
+
     response = await octokit.rest.issues.createComment({
-        issue_number: github.context.issue.number,
-        owner: github.context.repo.owner,
-        repo: github.context.repo.repo,
+        issue_number: context.issue.number,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
         body: comment_body
     });
     return response.data.id
 }
 
 const updateComment = async (comment_body, comment_id, octokit) => {
+    const { context = {} } = github;
+
     response = await octokit.rest.issues.updateComment({
-        owner: github.context.repo.owner,
-        repo: github.context.repo.repo,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
         comment_id: comment_id,
         body: comment_body
     });
@@ -39,9 +43,8 @@ async function run() {
         const body = "<details><summary>Show Output</summary>\n\n```\nDetails\n```\n</details>"
         
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
-        const { context = {} } = github;
 
-        const comment_id = createComment(body, context, octokit);
+        const comment_id = createComment(body, octokit);
         cron.schedule('*/10 * * * * *', () => {
             logOutputs("output.txt", comment_id, octokit);
             console.log('running every 30 seconds');
