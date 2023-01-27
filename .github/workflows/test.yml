@@ -10,7 +10,7 @@ on:
 jobs:
   log_output:
     if: |
-      {{ github.event_name == 'push' }} ||
+      github.event_name == 'push' ||
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +23,7 @@ jobs:
             
   tests_a:
     if: |
-      {{ github.event_name == 'push' }} ||
+      github.event_name == 'push' ||
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +41,7 @@ jobs:
 
   tests_b:
     if: |
-      {{ github.event_name == 'push' }} ||
+      github.event_name == 'push' ||
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     steps:
@@ -58,7 +58,7 @@ jobs:
 
   js_logs:
     if: |
-      {{ github.event_name == 'push' }} ||
+      github.event_name == 'push' ||
       contains(github.event.comment.body, '/hello_tests')
     runs-on: ubuntu-latest
     
