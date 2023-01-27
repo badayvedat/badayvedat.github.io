@@ -4,7 +4,7 @@ const cron = require('node-cron');
 const fs = require('fs');
 
 
-const createComment = async (comment_body, octokit) => {
+const createComment = async ({comment_body, octokit}) => {
     const { context = {} } = github;
 
     response = await octokit.rest.issues.createComment({
@@ -13,10 +13,10 @@ const createComment = async (comment_body, octokit) => {
         repo: context.repo.repo,
         body: comment_body
     }).catch((error) => { console.log(error) });
-    return response.data.id
+    return await response.data.id
 }
 
-const updateComment = async (comment_body, comment_id, octokit) => {
+const updateComment = async ({comment_body, comment_id, octokit}) => {
     const { context = {} } = github;
     console.log("comment id: " + comment_id)
     response = await octokit.rest.issues.updateComment({
@@ -27,7 +27,7 @@ const updateComment = async (comment_body, comment_id, octokit) => {
     }).catch((error) => { console.log(error) });
     console.log("update");
     console.log(response);
-    return response.data.id
+    return await response.data.id
 }
 
 
@@ -42,9 +42,13 @@ const getMarkdownSummary = (body) => {
 const logOutputs = ({filename, comment_id, octokit}) => {
     try {
         const data = fs.readFileSync(filename, 'utf8');
-        console.log("data")
-        console.log(data)
-        updateComment(data, comment_id, octokit)
+        console.log("data");
+        console.log(data);
+        updateComment({
+            comment_body: data,
+            comment_id: comment_id,
+            octokit: octokit
+        });
     } catch (err) {
         console.error(err);
     }
@@ -54,10 +58,10 @@ async function run() {
     try {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
-        const comment_id = createComment(
-            getMarkdownSummary(""), 
-            octokit
-        );
+        const comment_id = createComment({
+            comment_body: getMarkdownSummary(""), 
+            octokit: octokit
+        });
         cron.schedule('*/30 * * * * *', () => {
             logOutputs({
                 filename: "output.txt",
