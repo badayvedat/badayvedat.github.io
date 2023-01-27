@@ -3,7 +3,7 @@ const github = require('@actions/github');
 
 async function run() {
     try {
-        let body = "<details><summary>Show Output</summary>```\n\Details\n```</details>"
+        let body = "<details><summary>Show Output</summary>\n\n```\nDetails\n```\n</details>"
         
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
         const { context = {} } = github;
