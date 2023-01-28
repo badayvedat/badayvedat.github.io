@@ -50,6 +50,18 @@ const logOutputs = async ({filename, comment_id, octokit}) => {
     }
 }
 
+const checkIfProcessFinished = async () => {
+    const path = "SUCCESS"
+    if (fs.existsSync(path)) {
+        logOutputs({
+            filename: "output.log",
+            comment_id: comment_id,
+            octokit: octokit,
+        });
+        process.exit(0);
+    }
+}
+
 async function run() {
     try {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
@@ -64,6 +76,7 @@ async function run() {
                 comment_id: comment_id,
                 octokit: octokit,
             });
+            checkIfProcessFinished();
         });
 
     } catch (error) {

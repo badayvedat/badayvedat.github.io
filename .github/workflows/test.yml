@@ -73,7 +73,7 @@ jobs:
     
       - name: logged a tests
         run: |
-          python tests/a.py >> output.txt &
+          { python tests/a.py; touch SUCCESS; } &
           node .github/actions//log.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
