@@ -8,9 +8,7 @@ const createComment = async ({
     comment_body,
     octokit
 }) => {
-    const {
-        context = {}
-    } = github;
+    const { context } = github;
 
     response = await octokit.rest.issues.createComment({
         issue_number: context.issue.number,
@@ -28,10 +26,8 @@ const updateComment = async ({
     comment_id,
     octokit
 }) => {
-    const {
-        context = {}
-    } = github;
-    console.log("start octokit update")
+    const { context } = github;
+
     response = await octokit.rest.issues.updateComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
@@ -40,8 +36,8 @@ const updateComment = async ({
     }).catch((error) => {
         console.error(error)
     });
-    console.log("end octokit update")
-    console.log("update response: " + response);
+
+
     return response.data.id
 }
 
@@ -60,18 +56,18 @@ const logOutputs = async ({
     comment_id,
     octokit
 }) => {
-    console.log("log outputs");
+
     const log_path = getLogFilePath();
 
     try {
         const data = fs.readFileSync(log_path, 'utf8');
-        console.log("Start update: " + new Date())
+
         await updateComment({
             comment_body: data,
             comment_id: comment_id,
             octokit: octokit
         });
-        console.log("End update: " + new Date())
+
     } catch (err) {
         console.error(err);
     }
@@ -81,20 +77,20 @@ const checkOutput = async ({
     comment_id,
     octokit
 }) => {
-    console.log("start interval: " + new Date())
+
     await logOutputs({
         comment_id: comment_id,
         octokit: octokit,
     });
     if (isProcessFinished()) {
-        console.log("process finished")
+
         await logOutputs({
             comment_id: comment_id,
             octokit: octokit,
         });
         process.exit(0);
     }
-    console.log("end interval");
+
 }
 
 const isProcessFinished = () => fs.existsSync(
