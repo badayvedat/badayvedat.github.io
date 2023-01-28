@@ -60,7 +60,7 @@ async function run() {
         });
         cron.schedule('*/30 * * * * *', () => {
             logOutputs({
-                filename: "output.txt",
+                filename: "output.log",
                 comment_id: comment_id,
                 octokit: octokit,
             });
