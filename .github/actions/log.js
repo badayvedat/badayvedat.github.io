@@ -66,13 +66,13 @@ const logOutputs = async ({
 
     try {
         const data = fs.readFileSync(log_path, 'utf8');
-        console.log("Start update")
+        console.log("Start update: " + new Date())
         await updateComment({
             comment_body: data,
             comment_id: comment_id,
             octokit: octokit
         });
-        console.log("End update")
+        console.log("End update: " + new Date())
     } catch (err) {
         console.error(err);
     }
@@ -82,6 +82,7 @@ const checkOutput = ({
     comment_id,
     octokit
 }) => {
+    console.log("start interval: " + new Date())
     logOutputs({
         comment_id: comment_id,
         octokit: octokit,
@@ -94,6 +95,7 @@ const checkOutput = ({
         });
         process.exit(0);
     }
+    console.log("end interval");
 }
 
 const isProcessFinished = () => fs.existsSync(
