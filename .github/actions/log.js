@@ -35,10 +35,14 @@ const getMarkdownSummary = (body) => {
     return output
 }
  
+const getLogFilePath = () => "output.log"
+const getProcessSuccessFilePath = () => "SUCCESS"
 
-const logOutputs = async ({filename, comment_id, octokit}) => {
+const logOutputs = async ({comment_id, octokit}) => {
+    const log_path = getLogFilePath();
+
     try {
-        const data = fs.readFileSync(filename, 'utf8');
+        const data = fs.readFileSync(log_path, 'utf8');
         await updateComment({
             comment_body: data,
             comment_id: comment_id,
@@ -49,31 +53,43 @@ const logOutputs = async ({filename, comment_id, octokit}) => {
     }
 }
 
-const isProcessFinished = () => fs.existsSync("SUCCESS");
+const checkOutput = ({comment_id, octokit }) => {
+    logOutputs({
+        comment_id: comment_id,
+        octokit: octokit,
+    });
+    if (isProcessFinished()) {
+        logOutputs({
+            comment_id: comment_id,
+            octokit: octokit,
+        });
+        process.exit(0);
+    }
+}
+
+const isProcessFinished = () => fs.existsSync(
+    getProcessSuccessFilePath()
+);
 
 async function run() {
     try {
+        setInterval(intervalFunc, 1500);
+
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
         const comment_id = await createComment({
             comment_body: getMarkdownSummary(""), 
             octokit: octokit
         });
-        cron.schedule('*/30 * * * * *', () => {
-            logOutputs({
-                filename: "output.log",
+
+        const check_interval = 30 * 1000;
+        setInterval(
+            () => checkOutput({
                 comment_id: comment_id,
-                octokit: octokit,
-            });
-            if (isProcessFinished()) {
-                logOutputs({
-                    filename: "output.log",
-                    comment_id: comment_id,
-                    octokit: octokit,
-                });
-                process.exit(0);
-            }
-        });
+                octokit: octokit
+            }),
+            check_interval
+        );
 
     } catch (error) {
         core.error(error);
