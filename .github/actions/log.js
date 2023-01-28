@@ -39,6 +39,7 @@ const updateComment = async ({
     }).catch((error) => {
         console.error(error)
     });
+    console.log("update comment: " + response);
     return response.data.id
 }
 
@@ -62,6 +63,7 @@ const logOutputs = async ({
 
     try {
         const data = fs.readFileSync(log_path, 'utf8');
+        console.log("data: " + data)
         await updateComment({
             comment_body: data,
             comment_id: comment_id,
