@@ -57,6 +57,7 @@ const logOutputs = async ({
     comment_id,
     octokit
 }) => {
+    console.log("log outputs");
     const log_path = getLogFilePath();
 
     try {
@@ -80,6 +81,7 @@ const checkOutput = ({
         octokit: octokit,
     });
     if (isProcessFinished()) {
+        console.log("process finished")
         logOutputs({
             comment_id: comment_id,
             octokit: octokit,
@@ -97,7 +99,7 @@ async function run() {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
         const comment_id = await createComment({
-            comment_body: getMarkdownSummary(""),
+            comment_body: getMarkdownSummary("Waiting for command logs.."),
             octokit: octokit
         });
 
