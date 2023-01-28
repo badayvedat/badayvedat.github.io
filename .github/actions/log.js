@@ -12,7 +12,7 @@ const createComment = async ({comment_body, octokit}) => {
         owner: context.repo.owner,
         repo: context.repo.repo,
         body: comment_body
-    }).catch((error) => { console.log(error) });
+    }).catch((error) => { console.error(error) });
     return response.data.id
 }
 
@@ -24,7 +24,7 @@ const updateComment = async ({comment_body, comment_id, octokit}) => {
         repo: context.repo.repo,
         comment_id: comment_id,
         body: getMarkdownSummary(comment_body)
-    }).catch((error) => { console.log(error) });
+    }).catch((error) => { console.error(error) });
     return response.data.id
 }
 
@@ -50,17 +50,7 @@ const logOutputs = async ({filename, comment_id, octokit}) => {
     }
 }
 
-const checkIfProcessFinished = async () => {
-    const path = "SUCCESS"
-    if (fs.existsSync(path)) {
-        logOutputs({
-            filename: "output.log",
-            comment_id: comment_id,
-            octokit: octokit,
-        });
-        process.exit(0);
-    }
-}
+const isProcessFinished = () => fs.existsSync("SUCCESS");
 
 async function run() {
     try {
@@ -76,7 +66,14 @@ async function run() {
                 comment_id: comment_id,
                 octokit: octokit,
             });
-            checkIfProcessFinished();
+            if (isProcessFinished()) {
+                logOutputs({
+                    filename: "output.log",
+                    comment_id: comment_id,
+                    octokit: octokit,
+                });
+                process.exit(0);
+            }
         });
 
     } catch (error) {
