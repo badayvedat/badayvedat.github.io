@@ -73,8 +73,6 @@ const isProcessFinished = () => fs.existsSync(
 
 async function run() {
     try {
-        setInterval(intervalFunc, 1500);
-
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
         const comment_id = await createComment({
