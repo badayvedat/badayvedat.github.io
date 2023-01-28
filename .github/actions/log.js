@@ -41,7 +41,6 @@ const updateComment = async ({
         console.error(error)
     });
     console.log("end octokit update")
-    await response;
     console.log("update response: " + response);
     return response.data.id
 }
@@ -78,18 +77,18 @@ const logOutputs = async ({
     }
 }
 
-const checkOutput = ({
+const checkOutput = async ({
     comment_id,
     octokit
 }) => {
     console.log("start interval: " + new Date())
-    logOutputs({
+    await logOutputs({
         comment_id: comment_id,
         octokit: octokit,
     });
     if (isProcessFinished()) {
         console.log("process finished")
-        logOutputs({
+        await logOutputs({
             comment_id: comment_id,
             octokit: octokit,
         });
