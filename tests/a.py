@@ -1,6 +1,9 @@
 import time
-from pprint import pprint
+import logging
 
-for i in range(200):
+logging.basicConfig(filename='output.log', level=logging.INFO)
+
+for i in range(400):
     time.sleep(0.1)
+    logging.info(f"log a: {i}")
     print(f"a: {i}")
