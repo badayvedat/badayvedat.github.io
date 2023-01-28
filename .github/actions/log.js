@@ -13,7 +13,7 @@ const createComment = async ({comment_body, octokit}) => {
         repo: context.repo.repo,
         body: comment_body
     }).catch((error) => { console.log(error) });
-    return await response.data.id
+    return response.data.id
 }
 
 const updateComment = async ({comment_body, comment_id, octokit}) => {
@@ -25,7 +25,7 @@ const updateComment = async ({comment_body, comment_id, octokit}) => {
         comment_id: comment_id,
         body: getMarkdownSummary(comment_body)
     }).catch((error) => { console.log(error) });
-    return await response.data.id
+    return response.data.id
 }
 
 
