@@ -4,26 +4,41 @@ const cron = require('node-cron');
 const fs = require('fs');
 
 
-const createComment = async ({comment_body, octokit}) => {
-    const { context = {} } = github;
+const createComment = async ({
+    comment_body,
+    octokit
+}) => {
+    const {
+        context = {}
+    } = github;
 
     response = await octokit.rest.issues.createComment({
         issue_number: context.issue.number,
         owner: context.repo.owner,
         repo: context.repo.repo,
         body: comment_body
-    }).catch((error) => { console.error(error) });
+    }).catch((error) => {
+        console.error(error)
+    });
     return response.data.id
 }
 
-const updateComment = async ({comment_body, comment_id, octokit}) => {
-    const { context = {} } = github;
+const updateComment = async ({
+    comment_body,
+    comment_id,
+    octokit
+}) => {
+    const {
+        context = {}
+    } = github;
     response = await octokit.rest.issues.updateComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
         comment_id: comment_id,
         body: getMarkdownSummary(comment_body)
-    }).catch((error) => { console.error(error) });
+    }).catch((error) => {
+        console.error(error)
+    });
     return response.data.id
 }
 
@@ -34,11 +49,14 @@ const getMarkdownSummary = (body) => {
     const output = `<details>${summary_block}${code_ticks}${body}${code_ticks}</details>`
     return output
 }
- 
+
 const getLogFilePath = () => "output.log"
 const getProcessSuccessFilePath = () => "SUCCESS"
 
-const logOutputs = async ({comment_id, octokit}) => {
+const logOutputs = async ({
+    comment_id,
+    octokit
+}) => {
     const log_path = getLogFilePath();
 
     try {
@@ -53,7 +71,10 @@ const logOutputs = async ({comment_id, octokit}) => {
     }
 }
 
-const checkOutput = ({comment_id, octokit }) => {
+const checkOutput = ({
+    comment_id,
+    octokit
+}) => {
     logOutputs({
         comment_id: comment_id,
         octokit: octokit,
@@ -76,18 +97,15 @@ async function run() {
         const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
 
         const comment_id = await createComment({
-            comment_body: getMarkdownSummary(""), 
+            comment_body: getMarkdownSummary(""),
             octokit: octokit
         });
 
         const check_interval = 30 * 1000;
-        setInterval(
-            () => checkOutput({
-                comment_id: comment_id,
-                octokit: octokit
-            }),
-            check_interval
-        );
+        setInterval(checkOutput, check_interval, {
+            comment_id: comment_id,
+            octokit: octokit
+        });
 
     } catch (error) {
         core.error(error);
