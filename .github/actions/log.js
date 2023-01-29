@@ -1,7 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const cron = require('node-cron');
 const fs = require('fs');
+
+const GITHUB_COMMENT_BODY_LIMIT = 65536
 
 
 const createComment = async ({
@@ -46,7 +47,8 @@ const updateComment = async ({
 const getMarkdownSummary = (body) => {
     const summary_block = "<summary>Show Output</summary>\n"
     const code_ticks = "\n```\n"
-    const output = `<details>${summary_block}${code_ticks}${body}${code_ticks}</details>`
+    const block_length = `<details>${summary_block}${code_ticks}${code_ticks}</details>`.length
+    const output = `<details>${summary_block}${code_ticks}${body.slice(-(GITHUB_COMMENT_BODY_LIMIT - block_length))}${code_ticks}</details>`
     return output
 }
 
