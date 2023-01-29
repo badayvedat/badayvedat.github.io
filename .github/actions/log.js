@@ -11,7 +11,7 @@ const createComment = async ({
 }) => {
     const { context } = github;
 
-    response = await octokit.rest.issues.createComment({
+    const response = await octokit.rest.issues.createComment({
         issue_number: context.issue.number,
         owner: context.repo.owner,
         repo: context.repo.repo,
@@ -29,7 +29,7 @@ const updateComment = async ({
 }) => {
     const { context } = github;
     console.log("start request: " + comment_body.length)
-    response = await octokit.rest.issues.updateComment({
+    const response = await octokit.rest.issues.updateComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
         comment_id: comment_id,
