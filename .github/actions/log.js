@@ -19,7 +19,8 @@ const createComment = async ({ commentBody, octokit }) => {
       body: commentBody,
     })
     .catch((error) => {
-      console.error(error);
+      core.error(error);
+      core.setFailed(error.message);
     });
 
   return response.data.id;
@@ -27,7 +28,6 @@ const createComment = async ({ commentBody, octokit }) => {
 
 const updateComment = async ({ commentBody, commentId, octokit }) => {
   const { context } = github;
-  console.log(commentBody.length);
   const response = await octokit.rest.issues
     .updateComment({
       owner: context.repo.owner,
@@ -36,9 +36,9 @@ const updateComment = async ({ commentBody, commentId, octokit }) => {
       body: getMarkdownSummary(commentBody),
     })
     .catch((error) => {
-      console.error(error);
+      core.error(error);
+      core.setFailed(error.message);
     });
-  console.log(response);
   return response.data.id;
 };
 
@@ -64,7 +64,8 @@ const logOutputs = async ({ commentId, octokit }) => {
       octokit: octokit,
     });
   } catch (error) {
-    console.error(error);
+    core.error(error);
+    core.setFailed(error.message);
   }
 };
 
