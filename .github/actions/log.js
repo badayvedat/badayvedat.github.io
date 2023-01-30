@@ -4,15 +4,15 @@ const fs = require("fs");
 
 const GITHUB_COMMENT_BODY_LIMIT = 65536;
 
-const createComment = async ({ comment_body, octokit }) => {
+const createComment = async ({ commentBody, octokit }) => {
   const { context } = github;
 
   const response = await octokit.rest.issues
     .createComment({
-      issue_number: context.issue.number,
+      issueNumber: context.issue.number,
       owner: context.repo.owner,
       repo: context.repo.repo,
-      body: comment_body,
+      body: commentBody,
     })
     .catch((error) => {
       core.error(error);
@@ -21,15 +21,15 @@ const createComment = async ({ comment_body, octokit }) => {
   return response.data.id;
 };
 
-const updateComment = async ({ comment_body, comment_id, octokit }) => {
+const updateComment = async ({ commentBody, commentId, octokit }) => {
   const { context } = github;
-  console.log("start request: " + comment_body.length);
+  console.log("start request: " + commentBody.length);
   const response = await octokit.rest.issues
     .updateComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      comment_id: comment_id,
-      body: getMarkdownSummary(comment_body),
+      commentId: commentId,
+      body: getMarkdownSummary(commentBody),
     })
     .catch((error) => {
       core.error(error);
@@ -41,28 +41,28 @@ const updateComment = async ({ comment_body, comment_id, octokit }) => {
 };
 
 const getMarkdownSummary = (body) => {
-  const summary_block = "<summary>Show Output</summary>\n";
-  const code_ticks = "\n```\n";
-  const block_length =
-    `<details>${summary_block}${code_ticks}${code_ticks}</details>`.length;
-  const output = `<details>${summary_block}${code_ticks}${body.slice(
-    -(GITHUB_COMMENT_BODY_LIMIT - block_length)
-  )}${code_ticks}</details>`;
+  const summaryBlock = "<summary>Show Output</summary>\n";
+  const codeTicks = "\n```\n";
+  const blockLength =
+    `<details>${summaryBlock}${codeTicks}${codeTicks}</details>`.length;
+  const output = `<details>${summaryBlock}${codeTicks}${body.slice(
+    -(GITHUB_COMMENT_BODY_LIMIT - blockLength)
+  )}${codeTicks}</details>`;
   return output;
 };
 
 const getLogFilePath = () => "output.log";
 const getProcessSuccessFilePath = () => "SUCCESS";
 
-const logOutputs = async ({ comment_id, octokit }) => {
-  const log_path = getLogFilePath();
+const logOutputs = async ({ commentId, octokit }) => {
+  const logPath = getLogFilePath();
 
   try {
-    const data = fs.readFileSync(log_path, "utf8");
+    const data = fs.readFileSync(logPath, "utf8");
     console.log("start update: " + data.length);
     await updateComment({
-      comment_body: data,
-      comment_id: comment_id,
+      commentBody: data,
+      commentId: commentId,
       octokit: octokit,
     });
     console.log("end update");
@@ -72,14 +72,14 @@ const logOutputs = async ({ comment_id, octokit }) => {
   }
 };
 
-const checkOutput = async ({ comment_id, octokit }) => {
+const checkOutput = async ({ commentId, octokit }) => {
   await logOutputs({
-    comment_id: comment_id,
+    commentId: commentId,
     octokit: octokit,
   });
   if (isProcessFinished()) {
     await logOutputs({
-      comment_id: comment_id,
+      commentId: commentId,
       octokit: octokit,
     });
     process.exit(0);
@@ -90,16 +90,16 @@ const isProcessFinished = () => fs.existsSync(getProcessSuccessFilePath());
 
 async function run() {
   try {
-    const octokit = github.getOctokit(process.env["GITHUB_TOKEN"]);
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
-    const comment_id = await createComment({
-      comment_body: getMarkdownSummary("Waiting for command logs.."),
+    const commentId = await createComment({
+      commentBody: getMarkdownSummary("Waiting for command logs.."),
       octokit: octokit,
     });
 
     const check_interval = 30 * 1000;
     setInterval(checkOutput, check_interval, {
-      comment_id: comment_id,
+      commentId: commentId,
       octokit: octokit,
     });
   } catch (error) {
