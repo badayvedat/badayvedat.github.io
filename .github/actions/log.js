@@ -45,6 +45,8 @@ const updateComment = async ({ commentBody, commentID, octokit }) => {
 const getMarkdownSummary = (body) => {
   const summaryBlock = "<summary>Show Output</summary>\n";
   const codeTicks = "\n```\n";
+  const blockLength =
+    `<details>${summaryBlock}${codeTicks}${codeTicks}</details>`.length;
   const output = `<details>${summaryBlock}${codeTicks}${body.slice(
     -(GITHUB_COMMENT_BODY_LIMIT - blockLength)
   )}${codeTicks}</details>`;
