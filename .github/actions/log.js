@@ -38,6 +38,7 @@ const updateComment = async ({ commentBody, commentID, octokit }) => {
       body: getMarkdownSummary(commentBody),
     })
     .catch((error) => {
+      console.log(error);
       core.error(error);
       core.setFailed(error.message);
     });
@@ -60,7 +61,7 @@ const logOutputs = async ({ commentId, octokit }) => {
 
   try {
     const data = fs.readFileSync(logPath, "utf8");
-    console.log("data length: ", +data.length);
+    console.log("data length: ", + data.length);
     await updateComment({
       commentBody: data,
       commentId: commentId,
