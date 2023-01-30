@@ -1,8 +1,8 @@
 import time
-import os
-from pprint import pprint
+import logging
 
-for i in range(10**2):
-    print(f"a: {i}")
+logging.basicConfig(filename='output.log', level=logging.INFO)
 
-pprint(dict(os.environ))
+for i in range(100 * 1000):
+    time.sleep(0.1)
+    logging.info(f"log a: {i}")
