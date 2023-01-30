@@ -29,7 +29,7 @@ const createComment = async ({ commentBody, octokit }) => {
 
 const updateComment = async ({ commentBody, commentID, octokit }) => {
   const { context } = github;
-  console.log(commentBody.length);
+  console.log("commentBody length: " + commentBody.length);
   const response = await octokit.rest.issues
     .updateComment({
       owner: context.repo.owner,
