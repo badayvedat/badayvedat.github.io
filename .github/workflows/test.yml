@@ -48,6 +48,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       
+      - name: Echo github
+        run: echo ${{ toJson(github) }}
+
       - name: Checkout Pull Request
         run: hub pr checkout ${{ github.event.issue.number }}
         env:
