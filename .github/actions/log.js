@@ -2,7 +2,8 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs");
 
-const GITHUB_COMMENT_BODY_LIMIT = 65536;
+// Real limit is 65536. The remaining is left as an offset.
+const GITHUB_COMMENT_BODY_LIMIT = 65000;
 
 const getLogFilePath = () => "output.log";
 
@@ -19,7 +20,8 @@ const createComment = async ({ commentBody, octokit }) => {
       body: commentBody,
     })
     .catch((error) => {
-      console.error(error);
+        core.error(error);
+        core.setFailed(error.message);
     });
 
   return response.data.id;
@@ -36,7 +38,8 @@ const updateComment = async ({ commentBody, commentID, octokit }) => {
       body: getMarkdownSummary(commentBody),
     })
     .catch((error) => {
-      console.error(error);
+        core.error(error);
+        core.setFailed(error.message);
     });
   console.log(response);
   return response.data.id;
@@ -63,7 +66,8 @@ const logOutputs = async ({ commentId, octokit }) => {
       octokit: octokit,
     });
   } catch (error) {
-    console.error(error);
+    core.error(error);
+    core.setFailed(error.message);
   }
 };
 
