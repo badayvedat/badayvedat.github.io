@@ -60,6 +60,7 @@ const logOutputs = async ({ commentId, octokit }) => {
 
   try {
     const data = fs.readFileSync(logPath, "utf8");
+    console.log("data length: ", + data.length);
     await updateComment({
       commentBody: data,
       commentId: commentId,
