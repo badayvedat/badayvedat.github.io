@@ -95,8 +95,8 @@ const run = async () => {
       octokit: octokit,
     });
 
-    const CHECK_INTERVAL = 30 * 1000;
-    setInterval(checkOutput, CHECK_INTERVAL, {
+    const checkInterval = 30 * 1000;
+    setInterval(checkOutput, checkInterval, {
       commentId: commentId,
       octokit: octokit,
     });
