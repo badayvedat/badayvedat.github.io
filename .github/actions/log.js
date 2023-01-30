@@ -17,7 +17,8 @@ const createComment = async ({
         repo: context.repo.repo,
         body: comment_body
     }).catch((error) => {
-        console.error(error)
+        core.error(error);
+        core.setFailed(error.message);
     });
     return response.data.id
 }
@@ -35,7 +36,8 @@ const updateComment = async ({
         comment_id: comment_id,
         body: getMarkdownSummary(comment_body)
     }).catch((error) => {
-        console.error(error)
+        core.error(error);
+        core.setFailed(error.message);
     });
     console.log("end request: " + response)
 
@@ -72,8 +74,9 @@ const logOutputs = async ({
         });
         console.log("end update")
 
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        core.error(error);
+        core.setFailed(error.message);
     }
 }
 
