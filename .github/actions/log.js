@@ -20,8 +20,8 @@ const createComment = async ({ commentBody, octokit }) => {
       body: commentBody,
     })
     .catch((error) => {
-        core.error(error);
-        core.setFailed(error.message);
+      core.error(error);
+      core.setFailed(error.message);
     });
 
   return response.data.id;
@@ -38,10 +38,10 @@ const updateComment = async ({ commentBody, commentID, octokit }) => {
       body: getMarkdownSummary(commentBody),
     })
     .catch((error) => {
-        core.error(error);
-        core.setFailed(error.message);
+      core.error(error);
+      core.setFailed(error.message);
     });
-  console.log(response);
+  console.log("response: " + response);
   return response.data.id;
 };
 
@@ -60,7 +60,7 @@ const logOutputs = async ({ commentId, octokit }) => {
 
   try {
     const data = fs.readFileSync(logPath, "utf8");
-    console.log("data length: ", + data.length);
+    console.log("data length: ", +data.length);
     await updateComment({
       commentBody: data,
       commentId: commentId,
