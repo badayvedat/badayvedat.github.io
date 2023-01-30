@@ -25,14 +25,14 @@ const createComment = async ({ commentBody, octokit }) => {
   return response.data.id;
 };
 
-const updateComment = async ({ commentBody, commentID, octokit }) => {
+const updateComment = async ({ commentBody, commentId, octokit }) => {
   const { context } = github;
   console.log(commentBody.length);
   const response = await octokit.rest.issues
     .updateComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      comment_id: commentID,
+      comment_id: commentId,
       body: getMarkdownSummary(commentBody),
     })
     .catch((error) => {
@@ -97,7 +97,7 @@ const run = async () => {
 
     const CHECK_INTERVAL = 30 * 1000;
     setInterval(checkOutput, CHECK_INTERVAL, {
-      commentID: commentId,
+      commentId: commentId,
       octokit: octokit,
     });
   } catch (error) {
