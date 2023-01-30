@@ -51,7 +51,7 @@ const getMarkdownSummary = (body) => {
   const codeTicks = "\n```\n";
   const blockOffset = 100;
   const output = `<details>${summaryBlock}${codeTicks}${body.slice(
-    -(GITHUB_COMMENT_BODY_LIMIT - blockOffset)
+    -1000
   )}${codeTicks}</details>`;
   return output;
 };
