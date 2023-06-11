@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
-          sudo sapt update &&
+          sudo apt update &&
           sudo apt-get install -y curl rsync build-essential
       - name: Download and Install smu
         run: |
