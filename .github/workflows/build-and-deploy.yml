@@ -34,11 +34,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: make clean && make build
+        run: echo "Before" && ls -l && make clean && make build; echo "After" ls -l;
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./public
+          path: ./build/public
 
   deploy:
     environment:
