@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependencies
-      - run: |
+        run: |
           apt update &&
           apt-get install -y curl rsync build-essential
       - name: Download and Install smu
