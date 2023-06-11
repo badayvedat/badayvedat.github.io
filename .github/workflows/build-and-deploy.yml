@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
-          sudo apt update &&
+          sudo apt-get update &&
           sudo apt-get install -y curl rsync build-essential git
       - name: Download and Install smu
         run: |
@@ -34,11 +34,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: echo "Before" && ls -l && make clean && make build; echo "After" ls -l;
+        run: make clean && make build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./build/public
+          path: ./build
 
   deploy:
     environment:

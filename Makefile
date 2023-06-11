@@ -1,6 +1,5 @@
 build:
 	./barf
-	rsync -r public/ build/public
 	rsync style.css build/style.css
 
 clean:
