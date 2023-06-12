@@ -1,6 +1,8 @@
 build:
 	./barf
 	rsync style.css build/style.css
+	
+	rsync -r design-project build
 
 clean:
 	rm -rf build
