@@ -3,7 +3,7 @@ build:
 	rsync style.css build/style.css
 
 clean:
-	rm -rf build/*
+	rm -rf build
 
 watch:
 	while true; do \
