@@ -22,4 +22,6 @@
 - [Purely Functional Data Structures](https://www.cs.cmu.edu/~rwh/students/okasaki.pdf)
 - [How to Lead a Technical Reading Group](http://www.wucathy.com/blog/wp-content/uploads/2016/07/2012-How-to-lead-a-technical-reading-group-Cathy-Wu.pdf)
 - [How to Run Effective Paper Reading Groups](http://muratbuffalo.blogspot.com/2015/05/how-to-run-effective-paper-reading.html)
-
+- [REST API Design - Resource Modeling](https://www.thoughtworks.com/en-gb/insights/blog/rest-api-design-resource-modeling)
+- [Microservices by Martin Fowler](https://martinfowler.com/articles/microservices.html)
+- [FoundationDB: A Distributed Key-Value Store](https://cacm.acm.org/magazines/2023/6/273229-foundationdb-a-distributed-key-value-store/fulltext)
