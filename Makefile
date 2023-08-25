@@ -3,6 +3,7 @@ build:
 	rsync style.css build/style.css
 	
 	rsync -r design-project build
+	rsync -r lib build
 
 clean:
 	rm -rf build
