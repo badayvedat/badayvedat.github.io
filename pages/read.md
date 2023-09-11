@@ -58,3 +58,4 @@
 - [Running Databases on Kubernetes](https://questdb.io/blog/databases-on-k8s/)
 - [The Four Innovation Phases of Netflix’s Trillions Scale Real-time Data Infrastructure](https://zhenzhongxu.com/the-four-innovation-phases-of-netflixs-trillions-scale-real-time-data-infrastructure-2370938d7f01)
 - [Fluent Interface](https://martinfowler.com/bliki/FluentInterface.html)
+- [Building and Operating a Pretty Big Storage System Called S3](https://www.allthingsdistributed.com/2023/07/building-and-operating-a-pretty-big-storage-system.html)
