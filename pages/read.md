@@ -69,3 +69,4 @@
 - [Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](https://www.usenix.org/system/files/atc22-elhemali.pdf)
 - [DynamoDB, Ten Years Later](https://www.mydistributed.systems/2022/10/dynamodb-ten-years-later.html)
 - [Sundial: Fault-tolerant Clock Synchronization for Datacenters](https://www.usenix.org/system/files/osdi20-li_yuliang.pdf)
+- [Writing a Time Series Database from Scratch](https://web.archive.org/web/20220205173824/https://fabxc.org/tsdb/)
