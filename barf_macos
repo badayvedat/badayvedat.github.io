@@ -26,7 +26,7 @@ index_html() {
 		created=$(echo $(head -3 "$f" | tail -1))
 	 	echo \
 		"<span class='created'>" \
-			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;&nbsp;$title</a>" \
+			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;$title</a>" \
 			"<a style=\"font-size: small; align-self: center;\">$created</a>" \
 		"</span>"
 	 	# echo "<li><a>$created</a> <a href=\"$link\">$title</a></li>"
@@ -49,7 +49,7 @@ til_index_html() {
 		created=$(echo $(head -3 "$f" | tail -1))
 	 	echo \
 		"<span class='created'>" \
-			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;&nbsp;$title</a>" \
+			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;$title</a>" \
 			"<a style=\"font-size: small; align-self: center;\">$created</a>" \
 		"</span>"
 	done < "$1" | sort -r
