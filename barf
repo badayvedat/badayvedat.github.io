@@ -24,7 +24,11 @@ index_html() {
 	while read -r f title created; do
 		link=$(echo "$f" | sed -E 's|.*/(.*).md|\1/|')
 		created=$(echo $(head -3 "$f" | tail -1))
-	 	echo "<span class='created'>$created &mdash; <a href=\"$link\">$title</a></span>"
+	 	echo \
+		"<span class='created'>" \
+			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;&nbsp;$title</a>" \
+			"<a style=\"font-size: small; align-self: center;\">$created</a>" \
+		"</span>"
 	done < "$1" | sort -r
 
 	# Print footer after post list
@@ -43,7 +47,11 @@ til_index_html() {
 	while read -r f title created; do
 		link=$(echo "$f" | sed -E 's|.*/(.*).md|til/\1/|')
 		created=$(echo $(head -3 "$f" | tail -1))
-	 	echo "<span class='created'>$created &mdash; <a href=\"$link\">$title</a></span>"
+	 	echo \
+		"<span class='created'>" \
+			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;&nbsp;$title</a>" \
+			"<a style=\"font-size: small; align-self: center;\">$created</a>" \
+		"</span>"
 	done < "$1" | sort -r
 
 	# Print footer after post list

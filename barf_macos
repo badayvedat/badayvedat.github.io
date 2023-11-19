@@ -20,16 +20,39 @@ index_html() {
 	# Intro text
 	$MARKDOWN index.md
 
-	echo "<ul>"
-
 	# Posts
 	while read -r f title created; do
 		link=$(echo "$f" | gsed -E 's|.*/(.*).md|\1/|')
 		created=$(echo $(head -3 "$f" | tail -1))
-	 	echo "<li>$created <br> <a href=\"$link\">$title</a></li><br>"
+	 	echo \
+		"<span class='created'>" \
+			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;&nbsp;$title</a>" \
+			"<a style=\"font-size: small; align-self: center;\">$created</a>" \
+		"</span>"
+	 	# echo "<li><a>$created</a> <a href=\"$link\">$title</a></li>"
 	done < "$1" | sort -r
+	# Print footer after post list
+	cat footer.html
+}
 
-	echo "</ul>"
+til_index_html() {
+	# Print header
+	title=$(gsed -n '/^# /{s/# //p; q}' til.md)
+	sed "s/{{TITLE}}/$title/" header.html
+
+	# Intro text
+	$MARKDOWN til.md
+
+	# Posts
+	while read -r f title created; do
+		link=$(echo "$f" | sed -E 's|.*/(.*).md|til/\1/|')
+		created=$(echo $(head -3 "$f" | tail -1))
+	 	echo \
+		"<span class='created'>" \
+			"<a style=\"font-size: x-large;\" href=\"$link\">&nbsp;&nbsp;$title</a>" \
+			"<a style=\"font-size: small; align-self: center;\">$created</a>" \
+		"</span>"
+	done < "$1" | sort -r
 
 	# Print footer after post list
 	cat footer.html
@@ -88,6 +111,20 @@ write_page() {
 		> "$target" && cat footer.html >> "$target"
 }
 
+write_til_page() {
+	filename=$1
+	directory=$(echo $(basename "$filename" .md))
+	$(mkdir -p build/til/$directory)
+	target=$(echo "$filename" | gsed -r 's|\w+/(.*).md|build/til/\1/index.html|')
+	created=$(echo $(head -3 "$filename" | tail -1))
+	title=$2
+
+	$MARKDOWN "$filename" | \
+		cat header.html - |\
+		sed "s|{{TITLE}}|$title|" \
+		> "$target" && cat footer.html >> "$target"
+}
+
 rm -rf build && mkdir build
 
 # Blog posts
@@ -98,8 +135,21 @@ while read -r f title created; do
 	write_page "$f" "$title" "$created"
 done < build/posts.tsv
 
+# TIL posts
+index_tsv tils | sort -rt "	" -k 3 > build/tils.tsv
+til_index_html build/tils.tsv > build/til.html
+while read -r f title created; do
+	write_til_page "$f" "$title" "$created"
+done < build/tils.tsv
+
 # Pages
 index_tsv pages > build/pages.tsv
 while read -r f title created; do
 	write_page "$f" "$title" "$created"
 done < build/pages.tsv
+
+# TILs
+index_tsv tils > build/tils.tsv
+while read -r f title created; do
+	write_page "$f" "$title" "$created"
+done < build/tils.tsv

@@ -27,14 +27,16 @@ h1,h2,h3,h4 {
     margin: 2rem 0 0;
 }
 h1 {
+    font-weight: 400;
     margin-bottom: 0.5rem;
 }
 h1 + p {
     margin: 0 0 1rem;
 }
 span.created {
-    display: block;
+    display: flex;
     margin: 4px 15px;
+    justify-content: space-between;
 }
 img {
     border: 1px solid lightgrey;
