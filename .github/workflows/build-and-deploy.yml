@@ -28,6 +28,8 @@ jobs:
           sudo apt-get install -y curl rsync build-essential git
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - name: Install smu
         run: |
           cd lib/smu && sudo make install ;
