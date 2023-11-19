@@ -1,0 +1,3 @@
+[submodule "lib/smu"]
+	path = lib/smu
+	url = https://git.sr.ht/~bt/smu
