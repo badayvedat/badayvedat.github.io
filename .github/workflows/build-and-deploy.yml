@@ -28,9 +28,7 @@ jobs:
           sudo apt-get install -y curl rsync build-essential git
       - name: Download and Install smu
         run: |
-          curl -o smu.tar.gz https://git.sr.ht/~bt/smu/archive/1544a3321b77255e193f0c044a8c32b09be99c50.tar.gz &&
-          tar xzf smu.tar.gz ;
-          cd smu-1544a3321b77255e193f0c044a8c32b09be99c50 && sudo make install ;
+          cd lib/smu && sudo make install ;
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
