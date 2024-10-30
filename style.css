@@ -1,9 +1,5 @@
-* {
-    box-sizing: border-box;
-}
 body {
     font-family: sans-serif;
-    line-height: 1.45;
     margin: 0 auto;
     max-width: 45rem;
     padding: 0 15px;
@@ -12,26 +8,15 @@ hr {
     background-color: grey;
     border: 0;
     height: 1px;
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 nav {
     margin: 2rem 0 0;
 }
-main {
-    hyphens: auto;
-}
-main p {
-    margin: 1rem;
-}
 h1,h2,h3,h4 {
-    margin: 2rem 0 0;
-}
-h1 {
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-}
-h1 + p {
-    margin: 0 0 1rem;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
 }
 span.created {
     display: flex;
@@ -95,9 +80,6 @@ footer {
 }
 a {
     text-decoration:none;
-}
-a:link {
-    color: #1d60a3;
 }
 li span.displaynone { display:none; }
 
