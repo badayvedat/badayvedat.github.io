@@ -28,7 +28,7 @@
 - [Fast String Concatenation in JavaScript](https://docs.google.com/document/d/1o-MJPAddpfBfDZCkIHNKbMiM86iDFld7idGbNQLuKIQ)
 - [Architecture of Consoles](https://www.copetti.org/writings/consoles/)
 - [The Google Zanzibar Paper, Annotated by AuthZed](https://zanzibar.tech/)
-- [The Architecture of Open Source Applications][https://aosabook.org/en/index.html]
+- [The Architecture of Open Source Applications](https://aosabook.org/en/index.html)
 - [On Implementing Bloom Filters in C](https://www.andreinc.net/2022/03/01/on-implementing-bloom-filters-in-c)
 - [Build an 8-bit computer from scratch](https://eater.net/8bit)
 - [A fork() in the road](https://www.microsoft.com/en-us/research/publication/a-fork-in-the-road/)
