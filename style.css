@@ -13,10 +13,12 @@ hr {
 nav {
     margin: 2rem 0 0;
 }
-h1,h2,h3,h4 {
+h1, h2,h3,h4 {
     display: flex;
-    justify-content: center;
     margin: 2rem 0;
+}
+h1{
+    justify-content: center;
 }
 span.created {
     display: flex;
@@ -89,4 +91,22 @@ li span.displaynone { display:none; }
         a:visited {color: #d0adf0;}
         a:active {color: red;}
     }
+}
+
+.footnotes {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 2em;
+}
+
+.footnotes-sep {
+    margin: 2em 0 1em;
+}
+
+.footnotes-list {
+    padding-left: 2em;
+}
+
+.footnote-backref {
+    margin-left: 0.5em;
 }
