@@ -26,6 +26,7 @@ jobs:
         run: |
           sudo apt-get update &&
           sudo apt-get install -y curl rsync build-essential git
+          pip install 'markdown-it-py[plugins] @ git+https://github.com/badayvedat/markdown-it-py.git@feat/extend-cli'
       - name: Checkout
         uses: actions/checkout@v3
         with:
