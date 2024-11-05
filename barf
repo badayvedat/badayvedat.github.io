@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-MARKDOWN=smu
+MARKDOWN=markdown-it
 IFS='	'
 
 # Create tab separated file with filename, title, creation date, last update
