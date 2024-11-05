@@ -1,4 +1,4 @@
-# Vedat Baday
+# Vedat Baday Resume
 
 - Email: badayvedat@<span class=displaynone>null</span>gmail.com
 - GitHub: [badayvedat](https://github.com/badayvedat)
