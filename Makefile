@@ -1,21 +1,12 @@
-UNAME := $(shell uname)
-
 build:
-ifeq ($(UNAME), Darwin)
-	./barf_macos
-else
-	./barf
-endif
-	rsync style.css build/style.css
-	rsync -r design-project build
-	rsync -r lib build
+	python generate.py
 
 clean:
 	rm -rf build
 
 watch:
 	while true; do \
-		ls -d .git/* * posts/* pages/* tils/* header.html | entr -cd make ;\
+		ls -d .git/* input/* | entr -cd make ;\
 	done
 
 serve:

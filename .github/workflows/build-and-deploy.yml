@@ -22,20 +22,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Dependencies
-        run: |
-          sudo apt-get update &&
-          sudo apt-get install -y curl rsync build-essential git
-          pip install 'markdown-it-py[plugins] @ git+https://github.com/badayvedat/markdown-it-py.git@feat/extend-cli'
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Use python 3.11
+        uses: actions/setup-python@v5
         with:
-          submodules: recursive
-      - name: Install smu
+          python-version: "3.11"
+
+      - name: Install dependencies
         run: |
-          cd lib/smu && sudo make install ;
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Build
-        run: make clean && make build
+        run: make build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
