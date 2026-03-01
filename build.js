@@ -8,7 +8,7 @@ const POSTS_DIR = 'posts';
 // Common meta tags
 const SITE_DESCRIPTION = "Vedat's personal website";
 const FAVICON = `<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace' fill='%2300aa66'>>_</text></svg>">`;
-const THEME_INIT = `<script>const t=localStorage.getItem('theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme:light)').matches))document.documentElement.classList.add('light')</script>`;
+const THEME_INIT = `<script>const t=localStorage.getItem('theme');if(t!=='dark'&&!(t===null&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('light')</script>`;
 
 // Clean and create dist
 if (fs.existsSync(DIST)) {
@@ -367,7 +367,9 @@ function toggleTheme() {
 const saved = localStorage.getItem('theme');
 if (saved) {
   setTheme(saved);
-} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  setTheme('dark');
+} else {
   setTheme('light');
 }
 `;
