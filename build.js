@@ -72,7 +72,9 @@ function postTemplate(slug, title, date, content) {
 
 // Build posts and collect metadata
 const posts = [];
-const mdFiles = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'));
+const mdFiles = fs.existsSync(POSTS_DIR)
+  ? fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'))
+  : [];
 
 mdFiles.forEach(file => {
   const slug = file.replace('.md', '');
