@@ -1,5 +1,5 @@
 build:
-	python generate.py
+	uv run generate.py
 
 clean:
 	rm -rf build

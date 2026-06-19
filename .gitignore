@@ -1,2 +1,5 @@
 .venv
 build
+dist
+node_modules
+.claude
