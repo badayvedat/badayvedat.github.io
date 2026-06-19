@@ -1,1 +1,0 @@
-# Vedat Baday's Blog

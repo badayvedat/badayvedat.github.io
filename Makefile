@@ -1,5 +1,10 @@
-build:
+build: node_modules
 	uv run generate.py
+
+# Install JS deps (Shiki) when missing or stale.
+node_modules: package.json package-lock.json
+	npm install --no-audit --no-fund
+	@touch node_modules
 
 clean:
 	rm -rf build
